@@ -29,7 +29,7 @@ func main() {
 
 	// U --> Update
 	r.HandleFunc("/v1/wol/persons/{id}", updatePerson).Methods("PUT")
-	r.HandleFunc("/v1/wol/workouts/{id}", updateWorkout).Methods("PUT")
+	r.HandleFunc("/v1/wol/workouts/name/{id}", updateWorkoutName).Methods("PUT")
 	r.HandleFunc("/v1/wol/exercises/{id}", updateExercise).Methods("PUT")
 
 	log.Fatal(http.ListenAndServe(":8000", r))

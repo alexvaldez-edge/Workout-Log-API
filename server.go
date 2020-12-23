@@ -28,9 +28,9 @@ func main() {
 	r.HandleFunc("/v1/wol/exercises", getExercises).Methods("GET")
 
 	// U --> Update
-	r.HandleFunc("/v1/wol/persons", updatePerson).Methods("PUT")
-	r.HandleFunc("/v1/wol/workouts", updateWorkout).Methods("PUT")
-	r.HandleFunc("/v1/wol/exercises", updateExercise).Methods("PUT")
+	r.HandleFunc("/v1/wol/persons/{id}", updatePerson).Methods("PUT")
+	r.HandleFunc("/v1/wol/workouts/{id}", updateWorkout).Methods("PUT")
+	r.HandleFunc("/v1/wol/exercises/{id}", updateExercise).Methods("PUT")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

@@ -139,3 +139,29 @@ func getExercises(w http.ResponseWriter, r *http.Request) {
 
 	json.NewEncoder(w).Encode(exercises)
 }
+
+// Create Exercise
+func createExercise(w http.ResponseWriter, r *http.Request) {
+	stmt, err := db.Prepare("INSERT INTO Exercises(ExerciseName, Description) VALUES(?, ?)")
+	if err != nil {
+		log.Println("Error: Exercise insert not created.")
+		panic(err.Error())
+	}
+
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	keyVal := make(map[string]string)
+	json.Unmarshal(body, &keyVal)
+	ExerciseName := keyVal["ExerciseName"]
+	Description := keyVal["Description"]
+
+	_, err = stmt.Exec(ExerciseName, Description)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Fprintf(w, "New Exercise Created")
+}

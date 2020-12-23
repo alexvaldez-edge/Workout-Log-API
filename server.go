@@ -24,7 +24,7 @@ func main() {
 
 	// C --> Create
 	r.HandleFunc("/v1/wol/persons", createPerson).Methods("POST")
-	// r.HandleFunc("/v1/wol/workouts", createWorkout).Methods("POST")
+	r.HandleFunc("/v1/wol/workouts", createWorkout).Methods("POST")
 	// r.HandleFunc("/v1/wol/exercises", createExercise).Methods("POST")
 
 	// route := mux.NewRouter()

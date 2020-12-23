@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 // getPeople
@@ -63,7 +65,28 @@ func createPerson(w http.ResponseWriter, r *http.Request) {
 }
 
 func updatePerson(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
 
+	stmt, err := db.Prepare("UPDATE Person SET PersonName = ? WHERE PersonID = ?")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	keyVal := make(map[string]string)
+	json.Unmarshal(body, &keyVal)
+	newName := keyVal["PersonName"]
+
+	_, err = stmt.Exec(newName, params["id"])
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Fprintf(w, "Person with ID = %s was updated", params["id"])
 }
 
 func getWorkouts(w http.ResponseWriter, r *http.Request) {

@@ -17,15 +17,15 @@ func main() {
 	r := mux.NewRouter()
 
 	// Handlers CRUD
-	// R --> Read
-	r.HandleFunc("/v1/wol/persons", getPeople).Methods("GET")
-	r.HandleFunc("/v1/wol/workouts", getWorkouts).Methods("GET")
-	r.HandleFunc("/v1/wol/exercises", getExercises).Methods("GET")
-
 	// C --> Create
 	r.HandleFunc("/v1/wol/persons", createPerson).Methods("POST")
 	r.HandleFunc("/v1/wol/workouts", createWorkout).Methods("POST")
 	r.HandleFunc("/v1/wol/exercises", createExercise).Methods("POST")
+
+	// R --> Read
+	r.HandleFunc("/v1/wol/persons", getPeople).Methods("GET")
+	r.HandleFunc("/v1/wol/workouts", getWorkouts).Methods("GET")
+	r.HandleFunc("/v1/wol/exercises", getExercises).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

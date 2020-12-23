@@ -62,6 +62,10 @@ func createPerson(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "New Person Created")
 }
 
+func updatePerson(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func getWorkouts(w http.ResponseWriter, r *http.Request) {
 	log.Println("GET Workouts handler")
 
@@ -114,6 +118,10 @@ func createWorkout(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "New Workout Created")
 }
 
+func updateWorkout(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func getExercises(w http.ResponseWriter, r *http.Request) {
 	log.Println("GET Exercises handler")
 
@@ -164,4 +172,8 @@ func createExercise(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "New Exercise Created")
+}
+
+func updateExercise(w http.ResponseWriter, r *http.Request) {
+
 }

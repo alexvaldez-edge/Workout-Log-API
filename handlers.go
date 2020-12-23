@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 )
@@ -32,6 +34,32 @@ func getPeople(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(people)
+}
+
+// Create Person
+func createPerson(w http.ResponseWriter, r *http.Request) {
+	stmt, err := db.Prepare("INSERT INTO Person(PersonName) VALUES(?)")
+	if err != nil {
+		log.Println("Error: Person insert not created.")
+		panic(err.Error())
+	}
+
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	keyVal := make(map[string]string)
+	json.Unmarshal(body, &keyVal)
+	// PersonID := keyVal["PersonID"]
+	PersonName := keyVal["PersonName"]
+
+	_, err = stmt.Exec(PersonName)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Fprintf(w, "New Person Created")
 }
 
 func getWorkouts(w http.ResponseWriter, r *http.Request) {

@@ -27,9 +27,5 @@ func main() {
 	r.HandleFunc("/v1/wol/workouts", createWorkout).Methods("POST")
 	r.HandleFunc("/v1/wol/exercises", createExercise).Methods("POST")
 
-	// route := mux.NewRouter()
-
-	// addAppRoutes(route)
-
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

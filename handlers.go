@@ -166,6 +166,31 @@ func updateWorkoutName(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Workout Name with ID = %s was updated", params["id"])
 }
 
+func updateWorkoutDescription(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	stmt, err := db.Prepare("UPDATE Workout SET Description = ? WHERE WorkoutID = ?")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	keyVal := make(map[string]string)
+	json.Unmarshal(body, &keyVal)
+	newWorkoutName := keyVal["Description"]
+
+	_, err = stmt.Exec(newWorkoutName, params["id"])
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Fprintf(w, "Workout Description with ID = %s was updated to %s", params["id"], params["Description"])
+}
+
 func getExercises(w http.ResponseWriter, r *http.Request) {
 	log.Println("GET Exercises handler")
 

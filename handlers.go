@@ -163,7 +163,7 @@ func updateWorkoutName(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 
-	fmt.Fprintf(w, "Workout Name with ID = %s was updated", params["id"])
+	fmt.Fprintf(w, "Workout Name with ID = %s was updated to %s", params["id"], newWorkoutName)
 }
 
 func updateWorkoutDescription(w http.ResponseWriter, r *http.Request) {
@@ -246,7 +246,7 @@ func createExercise(w http.ResponseWriter, r *http.Request) {
 func updateExerciseName(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
-	stmt, err := db.Prepare("UPDATE Exercises SET ExerciseName = ? WHERE ExerciseID = ?")
+	stmt, err := db.Prepare("UPDATE Exercises SET ExerciseName = ? WHERE ExercisesID = ?")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -265,7 +265,7 @@ func updateExerciseName(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 
-	fmt.Fprintf(w, "Exercise Name with ID = %s was updated to %s", params["id"], params["ExerciseName"])
+	fmt.Fprintf(w, "Exercise Name with ID = %s was updated to %s", params["id"], newExerciseName)
 }
 
 func updateExerciseDescription(w http.ResponseWriter, r *http.Request) {

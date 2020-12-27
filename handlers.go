@@ -181,9 +181,9 @@ func updateWorkoutDescription(w http.ResponseWriter, r *http.Request) {
 
 	keyVal := make(map[string]string)
 	json.Unmarshal(body, &keyVal)
-	newWorkoutName := keyVal["Description"]
+	newWorkoutDescription := keyVal["Description"]
 
-	_, err = stmt.Exec(newWorkoutName, params["id"])
+	_, err = stmt.Exec(newWorkoutDescription, params["id"])
 	if err != nil {
 		panic(err.Error())
 	}
@@ -246,7 +246,7 @@ func createExercise(w http.ResponseWriter, r *http.Request) {
 func updateExerciseName(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
-	stmt, err := db.Prepare("UPDATE Workout SET WorkoutName = ? WHERE WorkoutID = ?")
+	stmt, err := db.Prepare("UPDATE Exercises SET ExerciseName = ? WHERE ExerciseID = ?")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -258,20 +258,20 @@ func updateExerciseName(w http.ResponseWriter, r *http.Request) {
 
 	keyVal := make(map[string]string)
 	json.Unmarshal(body, &keyVal)
-	newWorkoutName := keyVal["WorkoutName"]
+	newExerciseName := keyVal["ExerciseName"]
 
-	_, err = stmt.Exec(newWorkoutName, params["id"])
+	_, err = stmt.Exec(newExerciseName, params["id"])
 	if err != nil {
 		panic(err.Error())
 	}
 
-	fmt.Fprintf(w, "Workout Name with ID = %s was updated", params["id"])
+	fmt.Fprintf(w, "Exercise Name with ID = %s was updated to %s", params["id"], params["ExerciseName"])
 }
 
 func updateExerciseDescription(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
-	stmt, err := db.Prepare("UPDATE Workout SET Description = ? WHERE WorkoutID = ?")
+	stmt, err := db.Prepare("UPDATE Exercises SET Description = ? WHERE ExerciseID = ?")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -283,9 +283,9 @@ func updateExerciseDescription(w http.ResponseWriter, r *http.Request) {
 
 	keyVal := make(map[string]string)
 	json.Unmarshal(body, &keyVal)
-	newWorkoutName := keyVal["Description"]
+	newExerciseDescription := keyVal["Description"]
 
-	_, err = stmt.Exec(newWorkoutName, params["id"])
+	_, err = stmt.Exec(newExerciseDescription, params["id"])
 	if err != nil {
 		panic(err.Error())
 	}

@@ -208,6 +208,23 @@ func updateWorkoutDescription(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Workout Description with ID = %s was updated to %s", params["id"], params["Description"])
 }
 
+// Delete Workout
+func deleteWorkout(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	stmt, err := db.Prepare("DELETE FROM Workout WHERE WorkoutID = ?")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	_, err = stmt.Exec(params["id"])
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Fprintf(w, "Workout with ID = %s was deleted", params["id"])
+}
+
 func getExercises(w http.ResponseWriter, r *http.Request) {
 	log.Println("GET Exercises handler")
 

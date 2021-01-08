@@ -89,6 +89,23 @@ func updatePerson(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Person with ID = %s was updated", params["id"])
 }
 
+// Delete Person
+func deletePerson(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+
+	stmt, err := db.Prepare("DELETE FROM PERSON WHERE PersonID = ?")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	_, err = stmt.Exec(params["id"])
+	if err != nil {
+		panic(err.Error())
+	}
+
+	fmt.Fprintf(w, "Person with ID = %s was deleted", params["id"])
+}
+
 func getWorkouts(w http.ResponseWriter, r *http.Request) {
 	log.Println("GET Workouts handler")
 

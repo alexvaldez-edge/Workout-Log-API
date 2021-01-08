@@ -38,8 +38,8 @@ func main() {
 
 	// D --> Delete
 	r.HandleFunc("/v1/wol/persons/{id}", deletePerson).Methods("DELETE")
-	r.HandleFunc("/v1/wol/workouts/{id}", deleteWorkout).Methods("DELETE")
-	r.HandleFunc("/v1/wol/exercises/{id}", deleteExercise).Methods("DELETE")
+	// r.HandleFunc("/v1/wol/workouts/{id}", deleteWorkout).Methods("DELETE")
+	// r.HandleFunc("/v1/wol/exercises/{id}", deleteExercise).Methods("DELETE")
 
 	log.Fatal(http.ListenAndServe(":8000", r))
 }

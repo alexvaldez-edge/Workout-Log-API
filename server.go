@@ -36,5 +36,10 @@ func main() {
 	r.HandleFunc("/v1/wol/exercises/name/{id}", updateExerciseName).Methods("PUT")
 	r.HandleFunc("/v1/wol/exercises/description/{id}", updateExerciseDescription).Methods("PUT")
 
+	// D --> Delete
+	r.HandleFunc("/v1/wol/persons/{id}", deletePerson).Methods("DELETE")
+	r.HandleFunc("/v1/wol/workouts/{id}", deleteWorkout).Methods("DELETE")
+	r.HandleFunc("/v1/wol/exercises/{id}", deleteExercise).Methods("DELETE")
+
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
